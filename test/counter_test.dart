@@ -1,6 +1,7 @@
 // Import the test package and Counter class
 import 'package:test/test.dart';
-import 'package:testapp/counter.dart';
+import 'package:testapp/widget/counter.dart';
+
 
 
 void main() {

@@ -7,24 +7,54 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:testapp/main.dart';
+import 'package:testapp/widget/my_widget.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(MyWidget(title: 'T', message: 'M'));
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    
+    final titleFinder = find.text('T');
+    final messageFinder = find.text('M');
 
     // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    // await tester.tap(find.byIcon(Icons.add));
+    // await tester.pump();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(titleFinder, findsOneWidget);
+    expect(messageFinder, findsOneWidget);
+  });
+  testWidgets('finds a Text widget', (WidgetTester tester) async {
+    // Build an App with a Text widget that displays the letter 'H'.
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        body: Text('H'),
+      ),
+    ));
+
+    // Find a widget that displays the letter 'H'.
+    expect(find.text('H'), findsOneWidget);
+  });
+
+  testWidgets('finds a widget using a Key', (WidgetTester tester) async {
+    // Define the test key.
+    final testKey = Key('K');
+
+    // Build a MaterialApp with the testKey.
+    await tester.pumpWidget(MaterialApp(key: testKey, home: Container()));
+
+    // Find the MaterialApp widget using the testKey.
+    expect(find.byKey(testKey), findsOneWidget);
+  });
+
+  testWidgets('finds a specific instance', (WidgetTester tester) async {
+    final childWidget = Padding(padding: EdgeInsets.zero);
+
+    // Provide the childWidget to the Container.
+    await tester.pumpWidget(Container(child: childWidget));
+
+    // Search for the childWidget in the tree and verify it exists.
+    expect(find.byWidget(childWidget), findsOneWidget);
   });
 }
