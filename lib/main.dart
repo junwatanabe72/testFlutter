@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:testapp/widget/todo_list.dart';
 
 Future<Album> fetchAlbum(http.Client client) async {
   final response =
@@ -35,7 +36,7 @@ class Album {
   }
 }
 
-void main() => runApp(MyApp());
+void main() => runApp(TodoList());
 
 class MyApp extends StatefulWidget {
   MyApp({Key key}) : super(key: key);
